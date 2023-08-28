@@ -101,8 +101,13 @@ public class PlayerControls : MonoBehaviour
         movementInput = movementValue.Get<Vector2>();
     }
 
-    void OnFire() {
-        animator.SetTrigger("Attack");
+    void OnFire() 
+    {
+        if (Time.time >= attack.nextAttackTime && canMove) 
+        {
+            animator.SetTrigger("Attack");
+            attack.nextAttackTime = Time.time + attack.attackCooldown;
+        }
     }
 
     public void Attack() 

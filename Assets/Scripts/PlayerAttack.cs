@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,11 @@ public class PlayerAttack : MonoBehaviour
     Collider2D attackCollider;
     Vector2 attackOffset;
     Transform playerTransform;
+
+    public float damage = 25f;
+    public float nextAttackTime = 0f;
+    public float attackCooldown = 1.0f;
+
 
      public void Initialize(Transform playerTransform)
     {
@@ -41,4 +46,19 @@ public class PlayerAttack : MonoBehaviour
    {
         attackCollider.enabled = false;
    }
+   
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Enemy")
+        {
+            //Gây sát thương cho kẻ địch
+            Enemy enemy = other.GetComponent<Enemy>();
+
+            if (enemy != null)
+            {
+                enemy.Health -= damage;
+                enemy.Hit();
+            }
+        }
+    }
 }
