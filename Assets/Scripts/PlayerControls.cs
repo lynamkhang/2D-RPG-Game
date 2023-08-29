@@ -9,6 +9,12 @@ public class PlayerControls : MonoBehaviour
     public ContactFilter2D movementFilter; 
     public float collisionOffset = 0.05f;
     public PlayerAttack attack;
+    public Player player;
+
+    public float dashBoost;
+    public float dashTime;
+    private float _dashTime;
+    bool isDashing = false;
 
     Vector2 movementInput;
     Rigidbody2D rb;
@@ -29,6 +35,33 @@ public class PlayerControls : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+         //Player dash
+        if (Input.GetKeyDown(KeyCode.Space) && _dashTime <= 0 && isDashing == false)
+        {
+            if (player.currentStamina > 0)
+            {
+                moveSpeed += dashBoost;
+                _dashTime = dashTime;
+                isDashing = true;
+                player.UseStamina(25f);
+                player.StopStaRegen();
+            }
+        }
+
+        if (_dashTime <= 0 && isDashing == true)
+        {
+            moveSpeed -= dashBoost;
+            isDashing = false;
+            player.StartStaRegen();
+        } 
+        else
+        {
+            _dashTime -= Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
@@ -103,10 +136,15 @@ public class PlayerControls : MonoBehaviour
 
     void OnFire() 
     {
-        if (Time.time >= attack.nextAttackTime && canMove) 
+        if (player.currentStamina > 0)
         {
-            animator.SetTrigger("Attack");
-            attack.nextAttackTime = Time.time + attack.attackCooldown;
+            if (Time.time >= attack.nextAttackTime && canMove) 
+            {
+                animator.SetTrigger("Attack");
+                attack.nextAttackTime = Time.time + attack.attackCooldown;
+            }
+            player.UseStamina(25f);
+            player.StopStaRegen();
         }
     }
 
@@ -127,6 +165,7 @@ public class PlayerControls : MonoBehaviour
     {
         attack.StopAttack();
         UnlockMovement();
+        player.StartStaRegen();
     }
 
     public void LockMovement() 
@@ -138,4 +177,5 @@ public class PlayerControls : MonoBehaviour
     {
         canMove = true;
     }
+
 }

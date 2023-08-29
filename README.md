@@ -5,3 +5,8 @@ Updates 8/28/2023:
 - Add skeleton animation.
 - Add Enemy script.
 - Add Player attack cooldown.
+
+Updates 9/28/2023:
+- Add Health and Stamina for player.
+- Add Dash.
+- Attack and dash consume stamina.

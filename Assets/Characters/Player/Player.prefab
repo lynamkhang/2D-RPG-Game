@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8176190244614537151}
   - component: {fileID: 2379699514883101902}
   - component: {fileID: 1911217703884825033}
+  - component: {fileID: 8749109764310729062}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -181,7 +182,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.035394635, y: -0.014377989}
+  m_Offset: {x: -0.035394635, y: -0.05542261}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -192,7 +193,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.06356839, y: 0.19169943}
+  m_Size: {x: 0.06356839, y: 0.109610185}
   m_EdgeRadius: 0
 --- !u!50 &2379699514883101902
 Rigidbody2D:
@@ -242,6 +243,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8749109764310729062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219764794915307465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47439396862d87b4b95879fd56d79305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  maxStamina: 100
+  currentStamina: 0
+  healthBar: {fileID: 0}
+  staminaBar: {fileID: 0}
 --- !u!1 &1982274530943666285
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,3 +352,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
+  nextAttackTime: 0
+  attackCooldown: 1
